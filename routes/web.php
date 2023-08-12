@@ -32,3 +32,7 @@ Route::get('/details/{class}/{code}', function($class, $code){
 Route::get('/bari/{name}/{age}', function($name, $age){
     return "Name: $name & Age: $age";
 });
+
+Route::get('/hello', function(){
+    return "Hello Laravel";
+});
