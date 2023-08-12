@@ -28,3 +28,7 @@ Route::get('/info/{i}', function($i){
 Route::get('/details/{class}/{code}', function($class, $code){
     return "Course Details for Class $class and Code $code";
 });
+
+Route::get('/bari/{name}/{age}', function($name, $age){
+    return "Name: $name & Age: $age";
+});
