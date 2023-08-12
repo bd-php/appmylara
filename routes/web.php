@@ -20,3 +20,11 @@ Route::get('/', function () {
 Route::get('/about', function() {
     return "<h1>This is about page</h1>";
 });
+
+Route::get('/info/{i}', function($i){
+    return "This is $i page";
+});
+
+Route::get('/details/{class}/{code}', function($class, $code){
+    return "Course Details for Class $class and Code $code";
+});
