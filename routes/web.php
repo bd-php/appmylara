@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,25 +18,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    $users = User::first();
+    dd($users);
 });
 
-Route::get('/about', function() {
-    return "<h1>This is about page</h1>";
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/info/{i}', function($i){
-    return "This is $i page";
-});
-
-Route::get('/details/{class}/{code}', function($class, $code){
-    return "Course Details for Class $class and Code $code";
-});
-
-Route::get('/bari/{name}/{age}', function($name, $age){
-    return "Name: $name & Age: $age";
-});
-
-Route::get('/hello', function(){
-    return "Hello Laravel";
-});
+require __DIR__.'/auth.php';
