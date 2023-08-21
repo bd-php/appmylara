@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-
 use App\Models\User;
-
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +18,33 @@ use App\Models\User;
 
 Route::get('/', function () {
     // return view('welcome');
-    $users = User::first();
-    dd($users);
+    // $user = User::create([
+    //     'name' => 'sheikh',
+    //     'email' => 'sheikh@gmail.com',
+    //     'password' => bcrypt('password'),
+    // ]);
+
+    $users = User::all();
+
+    foreach($users as $user){
+        echo $user->name . " => " . $user->email
+        . " => " .$user->password;
+        echo "\n";
+    }
 });
+
+Route::get('/populate', function(){
+
+    $data = ['name' => Str::random(10),
+    'email' => Str::random(5).'@gmail.com',
+    'password' => Str::random(10)];
+
+    $id = User::create($data);
+
+    dd($id);
+
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,4 +56,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
