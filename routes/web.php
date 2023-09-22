@@ -16,16 +16,13 @@ use Illuminate\Support\Str;
 |
 */
 
+
 Route::get('/', function () {
-    // return view('welcome');
-    // $user = User::create([
-    //     'name' => 'sheikh',
-    //     'email' => 'sheikh@gmail.com',
-    //     'password' => bcrypt('password'),
-    // ]);
+    return view('welcome');
+});
 
+Route::get('/users', function () {
     $users = User::all();
-
     foreach($users as $user){
         echo $user->name . " => " . $user->email
         . " => " .$user->password;
@@ -35,14 +32,19 @@ Route::get('/', function () {
 
 Route::get('/populate', function(){
 
+	// $user = User::create([
+    //     'name' => 'sheikh',
+    //     'email' => 'sheikh@gmail.com',
+    //     'password' => bcrypt('password'),
+    // ]);
+
     $data = ['name' => Str::random(10),
     'email' => Str::random(5).'@gmail.com',
     'password' => Str::random(10)];
 
     $id = User::create($data);
-
-    dd($id);
-
+	
+	print_r($data);
 });
 
 
